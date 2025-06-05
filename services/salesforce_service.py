@@ -12,11 +12,11 @@ def connect_salesforce():
 
 def query_salesforce(parsed_input):
     sf = connect_salesforce()
-    # Using LineItem object and joining to parent Load
+    # Partial match using LIKE to support city-only user input
     query = """
-    SELECT rtms__Load__r.Id, rtms__Load__r.Name, rtms__Load__r.rtms__Carrier_Only_Quote_Total__c
-    FROM rtms__LineItem__c
-    WHERE rtms__OriginCity__c = 'Chicago' AND rtms__DestinationCity__c = 'Euclid'
+    SELECT Id, Name, rtms__Carrier_Only_Quote_Total__c
+    FROM rtms__Load__c
+    WHERE rtms__Origin__c LIKE 'Chicago%' AND rtms__Destination__c LIKE 'Euclid%'
     ORDER BY CreatedDate DESC
     LIMIT 1
     """
