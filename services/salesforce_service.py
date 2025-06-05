@@ -10,13 +10,12 @@ def connect_salesforce():
         domain="login"
     )
 
-def query_salesforce(parsed_input):
+def query_salesforce(origin, destination):
     sf = connect_salesforce()
-    # Partial match using LIKE to support city-only user input
-    query = """
+    query = f"""
     SELECT Id, Name, rtms__Carrier_Only_Quote_Total__c
     FROM rtms__Load__c
-    WHERE rtms__Origin__c LIKE 'Chicago%' AND rtms__Destination__c LIKE 'Euclid%'
+    WHERE rtms__Origin__c LIKE '{origin}%' AND rtms__Destination__c LIKE '{destination}%'
     ORDER BY CreatedDate DESC
     LIMIT 1
     """
