@@ -14,7 +14,7 @@ def query_salesforce(parsed_input):
     sf = connect_salesforce()
     # Mock values - you will later parse origin/destination from `parsed_input`
     query = """
-    SELECT Id, Name, rtms__TotalCost__c FROM rtms__Load__c
+    SELECT Id, Name, rtms__Carrier_Only_Quote_Total__c FROM rtms__Load__c
     WHERE Id IN (
         SELECT rtms__Load__c FROM rtms__LineItems__r
         WHERE rtms__OriginCity__c = 'Chicago' AND rtms__DestinationCity__c = 'Euclid'
